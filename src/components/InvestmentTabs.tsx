@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { BarChart3, TrendingUp, PieChart } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InvestmentTable from "./InvestmentTable";
 
 const tabs = [
@@ -9,90 +9,59 @@ const tabs = [
     id: "equity",
     label: "Equity",
     icon: BarChart3,
-    ariaLabel: "View equity investments"
   },
   {
     id: "futures",
     label: "Futures", 
     icon: TrendingUp,
-    ariaLabel: "View futures investments"
   },
   {
     id: "options",
     label: "Options",
     icon: PieChart,
-    ariaLabel: "View options investments"
   }
 ];
 
 const InvestmentTabs = () => {
-  const [activeTab, setActiveTab] = useState("equity");
-
-  const getButtonStyles = (tabId: string) => {
-    return `flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-      activeTab === tabId 
-        ? "bg-blue-100 text-blue-700" 
-        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-    }`;
-  };
-
-  const renderTabContent = () => {
-    switch(activeTab) {
-      case "equity":
-      case "futures": 
-      case "options":
-        return <InvestmentTable />;
-      default:
-        return <InvestmentTable />;
-    }
-  };
-
   return (
-    <section className="w-full" aria-label="Investment portfolio tabs">
-      <header className="mb-6">
-        <div className="px-6 py-4">
-          <nav 
-            className="flex justify-center space-x-20" 
-            role="tablist"
-            aria-label="Investment categories"
-          >
+    <Tabs defaultValue="equity" className="w-full">
+      <div className="mb-6">
+        <div className="flex justify-center">
+          <TabsList className="inline-flex items-center justify-center gap-8 bg-transparent h-auto p-0">
             {tabs.map((tab) => {
               const IconComponent = tab.icon;
-              const isActive = activeTab === tab.id;
               
               return (
-                <button
+                <TabsTrigger
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={getButtonStyles(tab.id)}
-                  role="tab"
-                  aria-selected={isActive}
-                  aria-controls={`panel-${tab.id}`}
-                  aria-label={tab.ariaLabel}
-                  tabIndex={isActive ? 0 : -1}
+                  value={tab.id}
+                  className="flex items-center space-x-2 px-6 py-3 rounded-lg text-sm font-medium transition-all data-[state=active]:bg-blue-100 data-[state=active]:text-blue-700 bg-gray-100 text-gray-600 hover:bg-gray-200"
                 >
-                  <IconComponent className="w-4 h-4" aria-hidden="true" />
+                  <IconComponent className="w-4 h-4" />
                   <span>{tab.label}</span>
-                </button>
+                </TabsTrigger>
               );
             })}
-          </nav>
+          </TabsList>
         </div>
-      </header>
-        <div className="py-3">
-      <div className="w-full h-0.5 bg-gray-300"></div>
-    </div>
-      <main 
-        className="mt-0"
-        role="tabpanel"
-        id={`panel-${activeTab}`}
-        aria-labelledby={`tab-${activeTab}`}
-      >
-        {renderTabContent()}
-      </main>
+      </div>
       
-    </section>
-    
+      <div className="py-3">
+        <div className="w-full h-0.5 bg-gray-300"></div>
+      </div>
+      
+      <TabsContent value="equity" className="mt-0">
+        <InvestmentTable />
+      </TabsContent>
+      
+      <TabsContent value="futures" className="mt-0">
+        <InvestmentTable />
+      </TabsContent>
+      
+      <TabsContent value="options" className="mt-0">
+        <InvestmentTable />
+      </TabsContent>
+    </Tabs>
   );
 };
 

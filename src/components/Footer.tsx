@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 export default function Footer() {
   return (
     <footer className="bg-[#005E89] text-white mt-16">
@@ -19,15 +21,16 @@ export default function Footer() {
               <p className="mt-4">Get market insights and facts right in your inbox</p>
             </div>
             
-            <div className="flex max-w-md">
+            <div className="flex max-w-md h-12">
               <input 
                 type="email" 
                 placeholder="Email Address"
-                className="flex-1 px-4 py-3 rounded-l-md bg-white text-gray-900 border-0 focus:ring-2 focus:ring-green-500 placeholder-gray-500"
+                className="flex-1 h-8 px-4 py-3 rounded-md bg-white text-gray-900 border-0 focus:ring-2 focus:ring-green-500 placeholder-gray-500"
               />
-              <button className="px-6 py-3 bg-green-500 text-white rounded-r-md hover:bg-green-600 font-medium transition-colors">
+              <div className="px-2"></div>
+              <Button className="h-8 px-6  bg-green-500 text-white rounded-r-md hover:bg-green-600 font-medium">
                 Subscribe
-              </button>
+              </Button>
             </div>
           </div>
 

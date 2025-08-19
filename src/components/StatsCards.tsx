@@ -1,4 +1,6 @@
 import { ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface Trend {
   type: "up" | "down";
@@ -23,31 +25,31 @@ export default function StatsCards({ cards }: StatsCardsProps) {
     { stroke: "#f59e0b", fill: "#f59e0b" },
   ];
 
-  const curvePaths = [
-    "M0,80 C40,20 80,40 120,30 C160,40 200,10 200,10 L200,100 L0,100 Z",
-    "M0,70 C50,30 100,50 150,20 C175,30 200,15 200,15 L200,100 L0,100 Z",
-    "M0,85 C30,35 70,55 110,25 C150,45 200,25 200,25 L200,100 L0,100 Z", 
-    "M0,75 C60,25 90,45 130,35 C170,25 200,20 200,20 L200,100 L0,100 Z"
+  const zigzagPaths = [
+    // Area under zigzag
+    "M0,80 L40,40 L80,80 L120,40 L160,80 L200,40 L200,100 L0,100 Z",
+    "M0,70 L50,50 L100,70 L150,50 L200,70 L200,100 L0,100 Z",
+    "M0,85 L30,65 L70,85 L110,65 L150,85 L200,65 L200,100 L0,100 Z",
+    "M0,75 L60,55 L90,75 L130,55 L170,75 L200,55 L200,100 L0,100 Z"
   ];
 
-  const strokePaths = [
-    "M0,80 C40,20 80,40 120,30 C160,40 200,10 200,10",
-    "M0,70 C50,30 100,50 150,20 C175,30 200,15 200,15",
-    "M0,85 C30,35 70,55 110,25 C150,45 200,25 200,25",
-    "M0,75 C60,25 90,45 130,35 C170,25 200,20 200,20"
+
+  const zigzagStrokePaths = [
+    // Border line for zigzag
+    "M0,80 L40,40 L80,80 L120,40 L160,80 L200,40",
+    "M0,70 L50,50 L100,70 L150,50 L200,70",
+    "M0,85 L30,65 L70,85 L110,65 L150,85 L200,65",
+    "M0,75 L60,55 L90,75 L130,55 L170,75 L200,55"
   ];
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {cards.map((card, i) => {
         const colorIndex = i % graphColors.length;
-        const pathIndex = i % curvePaths.length;
+        const pathIndex = i % zigzagPaths.length;
         
         return (
-          <div
-            key={i}
-            className="relative bg-white rounded-xl shadow-md p-6 overflow-hidden"
-          >
+          <Card key={i} className="relative overflow-hidden">
             <div className="absolute inset-0 opacity-40">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -63,12 +65,12 @@ export default function StatsCards({ cards }: StatsCardsProps) {
                 </defs>
                 
                 <path
-                  d={curvePaths[pathIndex]}
+                  d={zigzagPaths[pathIndex]}
                   fill={`url(#gradient-${i})`}
                 />
                 
                 <path
-                  d={strokePaths[pathIndex]}
+                  d={zigzagStrokePaths[pathIndex]}
                   stroke={graphColors[colorIndex].stroke}
                   strokeWidth="2"
                   fill="none"
@@ -77,29 +79,25 @@ export default function StatsCards({ cards }: StatsCardsProps) {
               </svg>
             </div>
 
-            <div className="relative">
-              <p className="text-gray-500 text-sm">{card.title}</p>
-              <h2 className="text-2xl font-bold text-gray-900">{card.value}</h2>
-
-              {card.trend && (
-                <div
-                  className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm font-medium mt-2
-                  ${
-                    card.trend.type === "up"
-                      ? "bg-green-100 text-green-600"
-                      : "bg-red-100 text-red-600"
-                  }`}
-                >
-                  {card.trend.type === "up" ? (
-                    <ArrowUpRight size={14} />
-                  ) : (
-                    <ArrowDownRight size={14} />
-                  )}
-                  {card.trend.value}
-                </div>
-              )}
-            </div>
-          </div>
+            <CardContent className="relative p-6">
+              <div className="flex items-start justify-between mb-2">
+                <p className="text-muted-foreground text-sm">{card.title}</p>
+                {card.trend && (
+                  <Badge 
+                    className="bg-green-100 text-green-700 hover:bg-green-200"
+                  >
+                    {card.trend.type === "up" ? (
+                      <ArrowUpRight size={14} className="mr-1" />
+                    ) : (
+                      <ArrowDownRight size={14} className="mr-1" />
+                    )}
+                    {card.trend.value}
+                  </Badge>
+                )}
+              </div>
+              <h2 className="text-2xl font-bold text-foreground">{card.value}</h2>
+            </CardContent>
+          </Card>
         );
       })}
     </div>
