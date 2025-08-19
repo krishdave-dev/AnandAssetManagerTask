@@ -3,7 +3,6 @@ export default function Header() {
     <header className="py-6 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center">
-          {/* Logo - Enhanced with better styling */}
           <div className="flex items-center gap-3 mr-8">
             <div className="w-14 h-14 bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
               <span className="text-white font-bold text-xl tracking-tight">A</span>
@@ -14,7 +13,6 @@ export default function Header() {
             </div>
           </div>
           
-          {/* Enhanced Navigation Bar */}
           <nav className="bg-[#E7F4F7] backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg px-8 py-4 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center gap-8">
               <a href="#" className="text-gray-700 hover:text-green-600 font-medium transition-all duration-500 ease-out relative group py-2 px-4 rounded-lg hover:bg-green-50/50">

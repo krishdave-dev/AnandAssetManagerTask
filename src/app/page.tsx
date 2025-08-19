@@ -32,19 +32,15 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50 relative">
-      {/* Left side light green gradient */}
       <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-green-100/30 to-transparent pointer-events-none"></div>
       
-      {/* Right side light blue gradient */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-blue-100/30 to-transparent pointer-events-none"></div>
       
       <BackgroundGradients />
 
-      {/* Content - All existing content goes here with relative positioning */}
       <div className="relative z-10">
         <Header />
 
-        {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <PageTitle />
           <Divider />

@@ -22,7 +22,6 @@ const getColorClass = (color: string) => {
 const InvestmentTable = () => {
   return (
     <div>
-      {/* Investment Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full">
           <thead className="border-b-2 border-gray-300">

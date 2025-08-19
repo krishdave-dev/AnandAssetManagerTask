@@ -4,7 +4,6 @@ import { useState } from "react";
 import { BarChart3, TrendingUp, PieChart } from "lucide-react";
 import InvestmentTable from "./InvestmentTable";
 
-// Tab configuration for better maintainability
 const tabs = [
   {
     id: "equity",
@@ -29,7 +28,6 @@ const tabs = [
 const InvestmentTabs = () => {
   const [activeTab, setActiveTab] = useState("equity");
 
-  // Button style function for consistency
   const getButtonStyles = (tabId: string) => {
     return `flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
       activeTab === tabId 
@@ -38,7 +36,6 @@ const InvestmentTabs = () => {
     }`;
   };
 
-  // Render tab content based on active tab
   const renderTabContent = () => {
     switch(activeTab) {
       case "equity":
@@ -52,7 +49,6 @@ const InvestmentTabs = () => {
 
   return (
     <section className="w-full" aria-label="Investment portfolio tabs">
-      {/* Tab Navigation Header */}
       <header className="mb-6">
         <div className="px-6 py-4">
           <nav 
@@ -86,7 +82,6 @@ const InvestmentTabs = () => {
         <div className="py-3">
       <div className="w-full h-0.5 bg-gray-300"></div>
     </div>
-      {/* Tab Content Area */}
       <main 
         className="mt-0"
         role="tabpanel"
