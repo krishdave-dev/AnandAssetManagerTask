@@ -31,7 +31,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 relative">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gray-100 relative">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-r from-transparent to-green-100/30 pointer-events-none"></div>
       
       <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-l from-transparent to-blue-100/30 pointer-events-none"></div>
