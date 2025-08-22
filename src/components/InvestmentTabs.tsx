@@ -27,20 +27,22 @@ const InvestmentTabs = () => {
 		<Tabs defaultValue="equity" className="w-full">
 			{/* Tab Navigation */}
 			<div className="flex justify-center mb-8 overflow-x-auto">
-				<TabsList className="flex items-center gap-4 lg:gap-28 bg-transparent h-auto p-0 font-nunito">
+				<TabsList className="flex items-center gap-[111px] bg-transparent h-auto p-0 font-nunito">
 					{tabs.map((tab) => {
 						const IconComponent = tab.icon;
 						return (
 							<TabsTrigger
 								key={tab.id}
 								value={tab.id}
-								className={`flex flex-row justify-center items-center gap-3 lg:gap-9 px-4 py-3 rounded-lg whitespace-nowrap
+								className={`flex flex-row justify-center items-center gap-9 lg:gap-[36px] px-0 py-0 rounded-[8px] whitespace-nowrap
                   font-nunito text-lg lg:text-xl font-medium
                   transition-all
-                data-[state=active]:bg-blue-light/10 data-[state=active]:text-[#0074A8] data-[state=active]:font-bold
+                  data-[state=active]:bg-blue-light/10 data-[state=active]:text-[#0074A8] data-[state=active]:font-bold
                   bg-gray-100 text-[#3F3F3F]
                   hover:bg-[#E7F7FC] hover:text-[#0074A8] hover:font-bold
+                  cursor-pointer
                 `}
+								style={{ width: 180, height: 44 }}
 							>
 								<span>{tab.label}</span>
 								<IconComponent className="w-5 h-5 lg:w-6 lg:h-6 text-gray-dark transition-colors group-hover:text-[#0074A8] hover:text-[#0074A8] data-[state=active]:text-[#0074A8]" />
