@@ -132,6 +132,14 @@ body {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+.font-helvetica {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.font-nunito {
+  font-family: var(--font-nunito), 'Nunito', sans-serif;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -1,105 +1,148 @@
-import { ArrowUpRight, ArrowDownRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-
+import { ChevronUp, ChevronDown } from "lucide-react";
+import React from "react";
 interface Trend {
   type: "up" | "down";
   value: string;
 }
 
-interface Card {
+interface CardType {
   title: string;
   value: string;
   trend: Trend | null;
 }
 
 interface StatsCardsProps {
-  cards: Card[];
+  cards: CardType[];
 }
 
 export default function StatsCards({ cards }: StatsCardsProps) {
-  const graphColors = [
-    { stroke: "#3b82f6", fill: "#3b82f6" },
-    { stroke: "#10b981", fill: "#10b981" },
-    { stroke: "#8b5cf6", fill: "#8b5cf6" },
-    { stroke: "#f59e0b", fill: "#f59e0b" },
-  ];
-
-  const zigzagPaths = [
-    // Area under zigzag
-    "M0,80 L40,40 L80,80 L120,40 L160,80 L200,40 L200,100 L0,100 Z",
-    "M0,70 L50,50 L100,70 L150,50 L200,70 L200,100 L0,100 Z",
-    "M0,85 L30,65 L70,85 L110,65 L150,85 L200,65 L200,100 L0,100 Z",
-    "M0,75 L60,55 L90,75 L130,55 L170,75 L200,55 L200,100 L0,100 Z"
-  ];
-
-
-  const zigzagStrokePaths = [
-    // Border line for zigzag
-    "M0,80 L40,40 L80,80 L120,40 L160,80 L200,40",
-    "M0,70 L50,50 L100,70 L150,50 L200,70",
-    "M0,85 L30,65 L70,85 L110,65 L150,85 L200,65",
-    "M0,75 L60,55 L90,75 L130,55 L170,75 L200,55"
-  ];
+  // Generate smooth increasing points for each card
+  function generateGraphPoints() {
+    const base = 40;
+    const step = 10;
+    // All graphs increase, with slight random variation
+    return Array.from({ length: 6 }, (_, i) =>
+      Math.max(
+        10,
+        Math.min(
+          80,
+          base + step * i + (Math.random() * 6 - 2)
+        )
+      )
+    ).map((y) => 80 - y); // invert for SVG
+  }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {cards.map((card, i) => {
-        const colorIndex = i % graphColors.length;
-        const pathIndex = i % zigzagPaths.length;
-        
-        return (
-          <Card key={i} className="relative overflow-hidden">
-            <div className="absolute inset-0 opacity-40">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 200 100"
-                className="w-full h-full"
-                preserveAspectRatio="none"
-              >
-                <defs>
-                  <linearGradient id={`gradient-${i}`} x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor={graphColors[colorIndex].fill} stopOpacity="0.1" />
-                    <stop offset="100%" stopColor={graphColors[colorIndex].fill} stopOpacity="0.02" />
-                  </linearGradient>
-                </defs>
-                
-                <path
-                  d={zigzagPaths[pathIndex]}
-                  fill={`url(#gradient-${i})`}
-                />
-                
-                <path
-                  d={zigzagStrokePaths[pathIndex]}
-                  stroke={graphColors[colorIndex].stroke}
-                  strokeWidth="2"
-                  fill="none"
-                  opacity="0.7"
-                />
-              </svg>
-            </div>
+    <section className="py-8 w-full flex justify-center">
+      <div className="flex items-center justify-center gap-8">
+        {cards.map((card, i) => {
+          const yPoints = generateGraphPoints();
+          const xPoints = [0, 46, 92, 138, 184, 230];
+          const linePath = xPoints.map((x, idx) => `${idx === 0 ? "M" : "L"}${x},${yPoints[idx]}`).join(" ");
+          const areaPath = `M0,91 L${xPoints.map((x, idx) => `${x},${yPoints[idx]}`).join(" L")} L230,91 Z`;
 
-            <CardContent className="relative p-6">
-              <div className="flex items-start justify-between mb-2">
-                <p className="text-muted-foreground text-sm">{card.title}</p>
-                {card.trend && (
-                  <Badge 
-                    className="bg-green-100 text-green-700 hover:bg-green-200"
+          return (
+            <React.Fragment key={i}>
+              <div
+                className="relative w-full h-[91px] max-w-[230px] rounded-2xl bg-[#F8FCFF] overflow-hidden flex flex-col justify-center px-5"
+              >
+                {/* Background Chart */}
+                <div className="absolute inset-0 opacity-40 pointer-events-none">
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 230 91"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="none"
                   >
-                    {card.trend.type === "up" ? (
-                      <ArrowUpRight size={14} className="mr-1" />
-                    ) : (
-                      <ArrowDownRight size={14} className="mr-1" />
+                    <rect width="230" height="91" fill="transparent" />
+                    {/* Area under line */}
+                    <path
+                      d={areaPath}
+                      fill={
+                        card.trend?.type === "up"
+                          ? "url(#green-gradient)"
+                          : "url(#red-gradient)"
+                      }
+                      fillOpacity="0.2"
+                    />
+                    {/* Line graph */}
+                    <path
+                      d={linePath}
+                      stroke={card.trend?.type === "up" ? "#45E083" : "#FF1414"}
+                      strokeOpacity="0.5"
+                      strokeWidth="3"
+                      fill="none"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="green-gradient"
+                        x1="0"
+                        y1="0"
+                        x2="230"
+                        y2="91"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stopColor="#45E083" />
+                        <stop offset="1" stopColor="#45E083" stopOpacity="0" />
+                      </linearGradient>
+                      <linearGradient
+                        id="red-gradient"
+                        x1="0"
+                        y1="0"
+                        x2="230"
+                        y2="91"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stopColor="#FF1414" />
+                        <stop offset="1" stopColor="#FF1414" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                {/* Content */}
+                <div className="relative z-10 p-3 h-full flex flex-col justify-center">
+                  <h3 className="text-gray-700 font-nunito text-xs lg:text-lg font-medium leading-normal ">
+                    {card.title}
+                  </h3>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-gray-900 font-nunito text-lg lg:text-2xl font-bold">
+                      {card.value}
+                    </span>
+                    {card.trend && (
+                      <div
+                        className={`flex items-center gap-1 px-2 py-1 rounded-lg ${
+                          card.trend.type === "up"
+                            ? "bg-green-200"
+                            : "bg-red-100/60"
+                        }`}
+                      >
+                        {card.trend.type === "up" ? (
+                          <ChevronUp className="w-4 h-4 text-green-600" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-red-600" />
+                        )}
+                        <span
+                          className={`font-nunito text-xs font-bold ${
+                            card.trend.type === "up"
+                              ? "text-green-600"
+                              : "text-red-600"
+                          }`}
+                        >
+                          {card.trend.value}
+                        </span>
+                      </div>
                     )}
-                    {card.trend.value}
-                  </Badge>
-                )}
+                  </div>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold text-foreground">{card.value}</h2>
-            </CardContent>
-          </Card>
-        );
-      })}
-    </div>
+              {i < cards.length - 1 && (
+                <div className="h-[60px] w-3 rounded-full bg-gray-200"></div>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </section>
   );
 }
