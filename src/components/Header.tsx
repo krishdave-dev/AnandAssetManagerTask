@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, CircleUserRound } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
@@ -17,11 +17,11 @@ export default function Header() {
   ];
 
   return (
-    <header className="w-full bg-white px-6 py-4">
+    <header className="w-full bg-white px-8 py-4">
       <div className="flex items-center justify-between w-full">
         {/* Logo */}
         <div className="flex items-center">
-          <div className="w-[80px] h-[80px] rounded-full bg-[#E7F7FC] flex items-center justify-center">
+          <div className="w-16 h-16 rounded-full bg-[#E7F7FC] flex items-center justify-center">
             <svg
               width="22.56"
               height="40"
@@ -50,23 +50,17 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav
-          className="hidden lg:flex items-center justify-center"
+          className="hidden lg:flex z-40 font-helvetica-neue font-[400] border-none shadow-none rounded-3xl w-[830px] h-16"
           style={{
-            width: 830,
-            height: 77,
-            borderRadius: 24,
             background: "#E7F7FC",
-            paddingLeft: 0,
-            paddingRight: 0,
           }}
         >
-          <div className="flex items-center justify-center gap-8 w-full">
+          <div className="flex items-center justify-between w-full h-full px-20">
             {navLinks.map(({ href, label }) => (
-              <div key={label} className="relative group">
+              <div key={label} className="relative group flex items-center ">
                 <Link
                   href={href}
-                  className="font-helvetica text-[24px] text-gray-800 hover:text-green-600 transition-colors"
-                  style={{ fontFamily: "Helvetica, Arial, sans-serif" }}
+                  className="font-helvetica-neue text-[22px] text-gray-800 hover:text-green-600 transition-colors font-[400]"
                 >
                   {label}
                 </Link>
@@ -81,14 +75,14 @@ export default function Header() {
         </nav>
 
         {/* Profile and Notifications */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-7">
           <div className="relative flex items-center">
             <button
               className="p-0 text-black hover:text-gray-600 relative"
-              style={{ width: 44, height: 44 }}
+              // style={{ width: 44, height: 44 }}
             >
               <svg
-                className="w-[44px] h-[44px]"
+                className="w-10 h-10"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.5}
@@ -100,18 +94,18 @@ export default function Header() {
                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                 />
               </svg>
-              <span className="absolute top-0 right-0 w-[20px] h-[20px] bg-red-500 rounded-full border-2 border-white"></span>
+              <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full border-2 border-white"></span>
             </button>
           </div>
           <button
             type="button"
-            className="p-0 border-none bg-transparent focus:outline-none"
+            className="p-2 border-none bg-transparent focus:outline-none"
           >
             <Image
               src="/profile.png"
               alt="Profile"
-              width={80}
-              height={80}
+              width={70}
+              height={70}
               className="rounded-full object-cover"
             />
           </button>
