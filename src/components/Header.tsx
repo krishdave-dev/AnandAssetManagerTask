@@ -60,7 +60,7 @@ export default function Header() {
             paddingRight: 0,
           }}
         >
-          <div className="flex items-center gap-16 w-full justify-center">
+          <div className="flex items-center justify-center gap-8 w-full">
             {navLinks.map(({ href, label }) => (
               <div key={label} className="relative group">
                 <Link
