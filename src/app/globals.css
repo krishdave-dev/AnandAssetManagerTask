@@ -37,6 +37,18 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Custom Project Colors */
+  --nav-bg: #E7F7FC;
+  --blue-primary: #0074A8;
+  --blue-secondary: #009DD0;
+  --green-primary: #45E083;
+  --green-secondary: #22c55e;
+  --footer-bg: #005E89;
+  --stats-card-bg: #F8FCFF;
+  --red-error: #FF1414;
+  --gray-light: #3F3F3F;
+  --green-neon: #CFFCE7;
 }
 
 .dark {
@@ -138,6 +150,29 @@ body {
 
 .font-nunito {
   font-family: var(--font-nunito), 'Nunito', sans-serif;
+}
+
+/* Custom tab styles */
+.tab-trigger {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.tab-trigger:hover {
+  background-color: var(--nav-bg);
+  color: var(--blue-primary);
+  font-weight: bold;
+}
+
+.tab-trigger[data-state="active"] {
+  background-color: var(--nav-bg);
+  color: var(--blue-primary);
+  font-weight: bold;
+}
+
+.tab-trigger:hover .tab-icon,
+.tab-trigger[data-state="active"] .tab-icon {
+  color: var(--blue-primary);
 }
 
 @layer base {

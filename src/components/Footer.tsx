@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#005E89] text-white font-nunito">
+    <footer className="w-full text-white font-nunito" style={{ backgroundColor: 'var(--footer-bg)' }}>
       <div className="px-4 lg:px-10 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
           {/* Company Info and Socials */}

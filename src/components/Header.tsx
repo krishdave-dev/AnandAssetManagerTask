@@ -21,7 +21,7 @@ export default function Header() {
       <div className="flex items-center justify-between w-full">
         {/* Logo */}
         <div className="flex items-center">
-          <div className="w-16 h-16 rounded-full bg-[#E7F7FC] flex items-center justify-center">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--nav-bg)' }}>
             <svg
               width="22.56"
               height="40"
@@ -32,11 +32,11 @@ export default function Header() {
               <g clipPath="url(#clip0)">
                 <path
                   d="M19.7729 29.7929L2.72705 39.7514C1.51624 40.458 0 39.5747 0 38.1579V18.2372C0 16.8203 1.51624 15.9371 2.72705 16.6437L19.7729 26.6059C20.9838 27.3125 20.9838 29.0863 19.7729 29.7929Z"
-                  fill="#009DD0"
+                  fill="var(--blue-secondary)"
                 />
                 <path
                   d="M2.72705 13.3941L19.7729 23.3563C20.9838 24.0629 22.5 23.1796 22.5 21.7628V1.84214C22.5 0.425281 20.9838 -0.457955 19.7729 0.248634L2.72705 10.2071C1.51624 10.9137 1.51624 12.6875 2.72705 13.3941Z"
-                  fill="#45E083"
+                  fill="var(--green-primary)"
                 />
               </g>
               <defs>
@@ -52,7 +52,7 @@ export default function Header() {
         <nav
           className="hidden lg:flex z-40 font-helvetica-neue font-[400] border-none shadow-none rounded-3xl w-[830px] h-16"
           style={{
-            background: "#E7F7FC",
+            background: "var(--nav-bg)",
           }}
         >
           <div className="flex items-center justify-between w-full h-full px-20">
@@ -61,13 +61,15 @@ export default function Header() {
                 <Link
                   href={href}
                   className="font-helvetica-neue text-[22px] text-gray-800 hover:text-green-600 transition-colors font-[400]"
+                  style={{ color: 'var(--gray-light)' }}
                 >
                   {label}
                 </Link>
                 <span
-                  className="absolute left-0 -bottom-2 h-1 w-full bg-green-600 rounded-full
+                  className="absolute left-0 -bottom-2 h-1 w-full rounded-full
                     transition-transform duration-300 origin-left
                     scale-x-0 group-hover:scale-x-100"
+                  style={{ backgroundColor: 'var(--green-secondary)' }}
                 />
               </div>
             ))}

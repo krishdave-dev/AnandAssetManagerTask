@@ -34,18 +34,18 @@ const InvestmentTabs = () => {
 							<TabsTrigger
 								key={tab.id}
 								value={tab.id}
-								className={`flex flex-row justify-center items-center gap-9 lg:gap-[36px] px-0 py-0 rounded-[8px] whitespace-nowrap
+								className={`tab-trigger flex flex-row justify-center items-center gap-9 lg:gap-[36px] px-0 py-0 rounded-[8px] whitespace-nowrap
                   font-nunito text-lg lg:text-xl font-medium
                   transition-all
-                  data-[state=active]:bg-blue-light/10 data-[state=active]:text-[#0074A8] data-[state=active]:font-bold
-                  bg-gray-100 text-[#3F3F3F]
-                  hover:bg-[#E7F7FC] hover:text-[#0074A8] hover:font-bold
                   cursor-pointer
                 `}
-								style={{ width: 180, height: 44 }}
+								style={{ 
+									width: 180, 
+									height: 44
+								}}
 							>
 								<span>{tab.label}</span>
-								<IconComponent className="w-5 h-5 lg:w-6 lg:h-6 text-gray-dark transition-colors group-hover:text-[#0074A8] hover:text-[#0074A8] data-[state=active]:text-[#0074A8]" />
+								<IconComponent className="tab-icon w-5 h-5 lg:w-6 lg:h-6 transition-colors" />
 							</TabsTrigger>
 						);
 					})}
